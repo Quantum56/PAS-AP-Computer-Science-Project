@@ -6,7 +6,9 @@ import java.awt.EventQueue;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -25,7 +27,7 @@ public class PLabScheduleApp extends JFrame {
 	private int scrWidth;
 	private int scrHeight;
 	private int classID = 0;
-	
+
 	/**
 	 * Launch the application.
 	 */
@@ -36,7 +38,7 @@ public class PLabScheduleApp extends JFrame {
 					PLabScheduleApp frame = new PLabScheduleApp(0);
 					frame.setVisible(true);
 					frame.setAlwaysOnTop(true);
-					
+
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -52,18 +54,18 @@ public class PLabScheduleApp extends JFrame {
 		scrHeight = scrSize.height;
 		scrWidth = scrSize.width;
 		classID = id;
-		
+
 		switchClass();
-		
+
 		setAlwaysOnTop(true);
 		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 800, 600);
+		setBounds(100, 100, 800, 700);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		contentPane.setName(room);
-		
+
 		JLabel label = new JLabel("");
 		Image dimg = getBufferedImage(resourcePath, this.getWidth(), this.getHeight());
 		label.setIcon(new ImageIcon(dimg));
@@ -71,7 +73,7 @@ public class PLabScheduleApp extends JFrame {
 		this.setAlwaysOnTop(true);
 		contentPane.add(label);
 	}
-	
+
 	public Image getBufferedImage(String filePath, int width, int height) {
 		BufferedImage img = null;
 		Image dimg = null;
@@ -86,23 +88,22 @@ public class PLabScheduleApp extends JFrame {
 	}
 
 	private void switchClass() {
-		// TODO Auto-generated method stub
-		switch (classID) {
-		case 1:
-			resourcePath = "/img/Science Building Map-1.jpg"; // CLab
-		case 2:
-			resourcePath = "/img/Science Building Map-1.jpg"; // SC2
-		case 3:
-			resourcePath = "/img/Science Building Map-1.jpg"; // PhysLab
-		case 4:
+		if (classID == 1)
+			resourcePath = "/img/CLABFinal-1.jpg"; // CLab
+		else if (classID == 2)
+			resourcePath = "/img/SC2Final-2.jpg"; // SC2
+		else if (classID == 3)
+			resourcePath = "/img/PLABFinal-3.jpg"; // PhysLab
+		else if (classID == 4)
 			resourcePath = "/img/Science Building Map-1.jpg"; // ChemLab
-		case 5:
-			resourcePath = "/img/Science Building Map-1.jpg"; // SC1
-		case 6:
-			resourcePath = "/img/Science Building Map-1.jpg"; // BLab
-		default:
-			resourcePath = "/img/Science Building Map-1.jpg";
-
+		else if (classID == 5)
+			resourcePath = "/img/SC1Final-5.jpg"; // SC1
+		else if (classID == 6)
+			resourcePath = "/img/BLABFinal-6.jpg"; // BLab
+		else if (classID == 7)
+			resourcePath = "/img/RLHFinal.jpg";
+		else {
+			System.err.println("errorneous parameter id");
 		}
 	}
 
@@ -113,5 +114,5 @@ public class PLabScheduleApp extends JFrame {
 	public void addName(String roomName) {
 		room = roomName;
 	}
-	
+
 }

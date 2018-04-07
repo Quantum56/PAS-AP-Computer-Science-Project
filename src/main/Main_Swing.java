@@ -39,15 +39,8 @@ import javax.swing.JPanel;
 public class Main_Swing {
 
 	private JFrame frmPasScienceBuilding;
-	private JButtonInit button1;
-	private JButtonInit button2;
-	private JButtonInit button3;
-	private JButtonInit button4;
-	private JButtonInit button5;
-	private JButtonInit button6;
-	private JButtonInit testButton;
 
-	private String currentTest = "Hello world!";
+	private String currentClass7;
 	public String currentClass1;
 	public String currentClass2;
 	public String currentClass3;
@@ -104,13 +97,20 @@ public class Main_Swing {
 		jButtonPanel.setLayout(null);
 		jButtonPanel.setVisible(true);
 		jButtonPanel.setBounds(0, 0, ScrWidth, ScrHeight);
-		button1 = new JButtonInit(230, 300, 395, 123, 1, Color.white, currentClass1);
-		button2 = new JButtonInit(795, 300, 354, 123, 2, Color.black, currentClass2);
-		button3 = new JButtonInit(1390, 300, 297, 123, 3, Color.black, currentClass3);
-		button4 = new JButtonInit(1270, 869, 417, 130, 4, Color.black, currentClass4);
-		button5 = new JButtonInit(614, 869, 375, 130, 5, Color.white, currentClass5);
-		button6 = new JButtonInit(230, 869, 384, 130, 6, Color.white, currentClass6);
-		testButton = new JButtonInit(624, 496, 672, 288, 1, Color.white, currentTest);
+		JButtonInit button1CLAB = new JButtonInit(230, 300, 395, 123, 1, Color.white, currentClass1);
+		JButtonInit button2SC2 = new JButtonInit(795, 300, 354, 123, 2, Color.black, currentClass2);
+		JButtonInit button3PLAB = new JButtonInit(1390, 300, 297, 123, 3, Color.black, currentClass3);
+		JButtonInit button4ChLAB = new JButtonInit(1270, 869, 417, 130, 4, Color.black, currentClass4);
+		JButtonInit button5SC1 = new JButtonInit(614, 869, 375, 130, 5, Color.white, currentClass5);
+		JButtonInit button6BLAB = new JButtonInit(230, 869, 384, 130, 6, Color.white, currentClass6);
+		JButtonInit button7RLH = new JButtonInit(624, 496, 672, 288, 7, Color.white, currentClass7);
+		button1CLAB.setActive(true);
+		button2SC2.setActive(true);
+		button3PLAB.setActive(true);
+		button4ChLAB.setActive(true);
+		button5SC1.setActive(true);
+		button6BLAB.setActive(true);
+		button7RLH.setActive(true);
 		jButtonPanel.setOpaque(false);
 		frmPasScienceBuilding.getContentPane().add(jButtonPanel);
 		frmPasScienceBuilding.getContentPane().add(backLabel);
@@ -122,6 +122,12 @@ public class Main_Swing {
 		lblPortsmouthAbbeySchool.setFont(new Font("Serif", Font.PLAIN, 65));
 		lblPortsmouthAbbeySchool.setBounds(0, 0, 1920, 100);
 		frmPasScienceBuilding.getContentPane().add(lblPortsmouthAbbeySchool);
+		
+		MovingText textFrame = new MovingText();
+		textFrame.setSize(1920, 20);
+		textFrame.setBounds(0, 100, 1920, 90);
+		textFrame.setVisible(true);
+		frmPasScienceBuilding.getContentPane().add(textFrame);
 
 		frmPasScienceBuilding.setTitle("PAS Science Building");
 		frmPasScienceBuilding.setBounds(100, 100, 1920, 1080);
@@ -165,13 +171,34 @@ public class Main_Swing {
 
 		return dimg;
 	}
-
-	public void addButton(JButton a) {
-		jButtonPanel.add(a);
-	}
 	
 	public void panelRefresh() {
 		jButtonPanel.repaint();
+	}
+	
+	public class MovingText extends JPanel implements ActionListener {
+		private static final long serialVersionUID = 1L;
+		private Font font = new Font("Arial", Font.BOLD, 30);
+		JLabel label;
+		
+		public MovingText() {
+			RSS rssobject = new RSS();
+			rssobject.getRss();
+
+			label = new JLabel(rssobject.getRss());
+			this.add(label);
+			this.setBackground(new Color(204, 0, 0));
+			javax.swing.Timer timer = new javax.swing.Timer(150, this);
+			timer.start();
+		}
+
+		public void actionPerformed(ActionEvent e) {
+			String oldText = label.getText();
+			String newText = oldText.substring(1) + oldText.substring(0, 1);
+			label.setText(newText);
+			label.setForeground(Color.WHITE);
+			label.setFont(font);
+		}
 	}
 
 	private class JButtonInit extends JButton {
@@ -228,6 +255,17 @@ public class Main_Swing {
 				public void mouseReleased(MouseEvent arg0) {
 				}
 			});
+		}
+		
+		public void addButton(JButton a) {
+			jButtonPanel.add(a);
+		}
+		
+		public void setActive(boolean a) {
+			if (a) {
+				this.setVisible(a);
+			} else
+				this.setVisible(a);
 		}
 	}
 
