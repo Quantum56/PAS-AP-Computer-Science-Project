@@ -9,6 +9,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Scanner;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -27,6 +28,7 @@ public class PLabScheduleApp extends JFrame {
 	private int scrWidth;
 	private int scrHeight;
 	private int classID = 0;
+	private static Scanner sc = new Scanner(System.in);
 
 	/**
 	 * Launch the application.
@@ -35,7 +37,9 @@ public class PLabScheduleApp extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					PLabScheduleApp frame = new PLabScheduleApp(0);
+					System.out.println("Enter param id: (1-7)");
+					int a = sc.nextInt();
+					PLabScheduleApp frame = new PLabScheduleApp(a);
 					frame.setVisible(true);
 					frame.setAlwaysOnTop(true);
 

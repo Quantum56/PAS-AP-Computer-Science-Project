@@ -47,7 +47,7 @@ public class Main_Swing {
 	public String currentClass4;
 	public String currentClass5;
 	public String currentClass6;
-	
+
 	public JPanel jButtonPanel = new JPanel();
 	public JLabel backLabel = new JLabel("");
 
@@ -122,12 +122,19 @@ public class Main_Swing {
 		lblPortsmouthAbbeySchool.setFont(new Font("Serif", Font.PLAIN, 65));
 		lblPortsmouthAbbeySchool.setBounds(0, 0, 1920, 100);
 		frmPasScienceBuilding.getContentPane().add(lblPortsmouthAbbeySchool);
-		
+
 		MovingText textFrame = new MovingText();
 		textFrame.setSize(1920, 20);
 		textFrame.setBounds(0, 100, 1920, 90);
 		textFrame.setVisible(true);
 		frmPasScienceBuilding.getContentPane().add(textFrame);
+
+		JLabel label1 = new JLabel();
+		label1.setText("Click on a classroom to open its schedule: ");
+		label1.setFont(new Font("Lato", Font.PLAIN, 35));
+		label1.setBounds((backLabel.getWidth() / 2) - 375, 100, 650, 35);
+		label1.setVisible(true);
+		backLabel.add(label1);
 
 		frmPasScienceBuilding.setTitle("PAS Science Building");
 		frmPasScienceBuilding.setBounds(100, 100, 1920, 1080);
@@ -135,6 +142,12 @@ public class Main_Swing {
 		frmPasScienceBuilding.setUndecorated(true);
 		frmPasScienceBuilding.setVisible(true);
 		frmPasScienceBuilding.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+		Clock clock = new Clock();
+		JPanel clock0 = clock.getObj();
+		clock0.setBounds(0, 0, 200, 100);
+		clock0.setVisible(true);
+		frmPasScienceBuilding.getContentPane().add(clock0);
 
 		JMenuBar menuBar = new JMenuBar();
 		frmPasScienceBuilding.setJMenuBar(menuBar);
@@ -164,23 +177,24 @@ public class Main_Swing {
 		Image dimg = null;
 		try {
 			img = ImageIO.read(Main_Swing.class.getResource(filePath));
-			dimg = img.getScaledInstance(frmPasScienceBuilding.getWidth(), frmPasScienceBuilding.getHeight(), Image.SCALE_SMOOTH);
+			dimg = img.getScaledInstance(frmPasScienceBuilding.getWidth(), frmPasScienceBuilding.getHeight(),
+					Image.SCALE_SMOOTH);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 
 		return dimg;
 	}
-	
+
 	public void panelRefresh() {
 		jButtonPanel.repaint();
 	}
-	
+
 	public class MovingText extends JPanel implements ActionListener {
 		private static final long serialVersionUID = 1L;
 		private Font font = new Font("Arial", Font.BOLD, 30);
 		JLabel label;
-		
+
 		public MovingText() {
 			RSS rssobject = new RSS();
 			rssobject.getRss();
@@ -205,6 +219,7 @@ public class Main_Swing {
 		private static final long serialVersionUID = 1L;
 
 		private Font Font0 = new Font("Arial", Font.BOLD, 18);
+
 		public JButtonInit(int x, int y, int width, int height, int classID, Color color, String text) {
 			JButton button0 = new JButton();
 			button0.setFont(Font0);
@@ -256,11 +271,11 @@ public class Main_Swing {
 				}
 			});
 		}
-		
+
 		public void addButton(JButton a) {
 			jButtonPanel.add(a);
 		}
-		
+
 		public void setActive(boolean a) {
 			if (a) {
 				this.setVisible(a);
