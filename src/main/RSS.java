@@ -6,9 +6,9 @@ import java.io.*;
 
 public class RSS {
 
-	public String getRss() {
-
-		return readRSSFeed(" http://rss.cnn.com/rss/cnn_us.rss%22 ");
+	public String getRss(String URL) {
+		
+		return readRSSFeed(" " + URL + " ");
 		// System.out.println(readRSSFeed("https://www.sciencedaily.com/rss/top.xml%22));
 	}
 

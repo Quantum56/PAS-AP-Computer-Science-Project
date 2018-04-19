@@ -3,9 +3,13 @@ package main;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.EventQueue;
+import java.awt.Font;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
+import java.awt.image.ImageObserver;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -13,6 +17,7 @@ import java.util.Scanner;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.Timer;
 import javax.swing.WindowConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
@@ -39,7 +44,7 @@ public class PLabScheduleApp extends JFrame {
 				try {
 					System.out.println("Enter param id: (1-7)");
 					int a = sc.nextInt();
-					PLabScheduleApp frame = new PLabScheduleApp(a);
+					PLabScheduleApp frame = new PLabScheduleApp(a, "test");
 					frame.setVisible(true);
 					frame.setAlwaysOnTop(true);
 
@@ -53,17 +58,18 @@ public class PLabScheduleApp extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public PLabScheduleApp(int id) {
+	public PLabScheduleApp(int id, String room0) {
 		Dimension scrSize = Toolkit.getDefaultToolkit().getScreenSize();
 		scrHeight = scrSize.height;
 		scrWidth = scrSize.width;
 		classID = id;
+		room = room0;
 
 		switchClass();
 
 		setAlwaysOnTop(true);
 		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 800, 700);
+		setBounds(0, 0, 800, 700);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -74,8 +80,30 @@ public class PLabScheduleApp extends JFrame {
 		Image dimg = getBufferedImage(resourcePath, this.getWidth(), this.getHeight());
 		label.setIcon(new ImageIcon(dimg));
 		label.setBounds(0, 0, this.getWidth(), this.getHeight());
+		JLabel label1 = new JLabel("");
+		label1.setText(room);
+		label1.setBounds((this.getWidth() / 2) - 150, -(this.getHeight() / 2) + 10, this.getWidth(), this.getHeight());
+		Font font = new Font("Arial", Font.PLAIN, 25);
+		label1.setFont(font);
+		label1.setEnabled(true);
+		label1.setVisible(true);
+		label.add(label1);
 		this.setAlwaysOnTop(true);
 		contentPane.add(label);
+		this.setTitle(room);
+		this.setIconImage(null);
+
+		Timer t = new Timer(10000, null);
+		t.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {;
+				dispose();
+
+			}
+		});
+		t.setRepeats(false);
+		t.start();
 	}
 
 	public Image getBufferedImage(String filePath, int width, int height) {

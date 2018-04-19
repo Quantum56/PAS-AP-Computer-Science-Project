@@ -95,7 +95,7 @@ public class Clock extends JPanel {
 			setStringTime(correctionHour + hour + ":" + correctionMinute + minute + ":" + correctionSecond + second + " " + am_pm);
 			g.setColor(Color.BLACK);
 			int length = findMinimumBetweenTwoNumbers(this.getWidth(), this.getHeight());
-			Font myFont = new Font("Arial", Font.PLAIN, 30);
+			Font myFont = new Font("Arial", Font.PLAIN, 20);
 			g.setFont(myFont);
 			g.drawString(stringTime, (int) length / 6, length / 2);
 

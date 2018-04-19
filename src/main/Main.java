@@ -8,13 +8,15 @@ package main;
  *
  */
 public class Main {
+	public static Thread t;
 
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		new Main_Swing();
+		t = new Thread(new Main_Swing());
+		t.start();
 		
 	}
 

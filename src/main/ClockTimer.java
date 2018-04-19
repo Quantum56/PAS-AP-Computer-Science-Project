@@ -12,15 +12,12 @@ import java.util.concurrent.TimeUnit;
  * @see java.lang.Runnable#run()
  */
 public class ClockTimer implements Runnable {
-	private final int normalBlock = 0; // normal block size in milliseconds
-	private final int extendedBlock = 0; // extended block size in milliseconds
-	private final int conferenceBlock = 0; // conference block size in milliseconds
-	private static final int[] mondayTimes = {};
-	private static final int[] tuesdayTimes = {};
-	private static final int[] wednesdayTimes = {};
-	private static final int[] thursdayTimes = {};
-	private static final int[] fridayTimes = {};
-	private static final int[] saturdayTimes = {};
+	public static final int[] mondayTimes = {};
+	public static final int[] tuesdayTimes = {};
+	public static final int[] wednesdayTimes = {};
+	public static final int[] thursdayTimes = {};
+	public static final int[] fridayTimes = {};
+	public static final int[] saturdayTimes = {};
 	public static int[] currentArr = {};
 	private int ClockTickAmt = 0;
 	private int iterator = 0;

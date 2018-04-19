@@ -36,23 +36,28 @@ import java.awt.event.MouseListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JPanel;
 
-public class Main_Swing {
+public class Main_Swing implements Runnable {
 
 	private JFrame frmPasScienceBuilding;
 
-	private String currentClass7;
-	public String currentClass1;
-	public String currentClass2;
-	public String currentClass3;
-	public String currentClass4;
-	public String currentClass5;
-	public String currentClass6;
+	private String currentClass7 = "RLH Schedule";
+	public String currentClass1 = "Computer Lab Schedule";
+	public String currentClass2 = "Science Lab 2 Schedule";
+	public String currentClass3 = "Physics Lab Schedule";
+	public String currentClass4 = "Chemistry Lab Schedule";
+	public String currentClass5 = "Science Lab 1 Schedule";
+	public String currentClass6 = "Biology Lab Schedule";
 
 	public JPanel jButtonPanel = new JPanel();
 	public JLabel backLabel = new JLabel("");
+	
+	public static int ScrWidth;
+	public static int ScrHeight;
 
 	/**
 	 * Launch the application.
+	 * @author ZackB, DaveyA, BrendanK
+	 * @version 0.1.0
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -86,8 +91,8 @@ public class Main_Swing {
 		frmPasScienceBuilding.setForeground(Color.DARK_GRAY);
 		frmPasScienceBuilding.getContentPane().setForeground(Color.DARK_GRAY);
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-		final int ScrWidth = (int) screenSize.getWidth();
-		final int ScrHeight = (int) screenSize.getHeight();
+		ScrWidth = (int) screenSize.getWidth();
+		ScrHeight = (int) screenSize.getHeight();
 		frmPasScienceBuilding.setSize(ScrWidth, ScrHeight);
 		Image dimg = getBufferedImage("/img/Science Building Map-1.jpg", ScrWidth, ScrHeight);
 		frmPasScienceBuilding.getContentPane().setLayout(null);
@@ -97,13 +102,13 @@ public class Main_Swing {
 		jButtonPanel.setLayout(null);
 		jButtonPanel.setVisible(true);
 		jButtonPanel.setBounds(0, 0, ScrWidth, ScrHeight);
-		JButtonInit button1CLAB = new JButtonInit(230, 300, 395, 123, 1, Color.white, currentClass1);
-		JButtonInit button2SC2 = new JButtonInit(795, 300, 354, 123, 2, Color.black, currentClass2);
-		JButtonInit button3PLAB = new JButtonInit(1390, 300, 297, 123, 3, Color.black, currentClass3);
-		JButtonInit button4ChLAB = new JButtonInit(1270, 869, 417, 130, 4, Color.black, currentClass4);
-		JButtonInit button5SC1 = new JButtonInit(614, 869, 375, 130, 5, Color.white, currentClass5);
-		JButtonInit button6BLAB = new JButtonInit(230, 869, 384, 130, 6, Color.white, currentClass6);
-		JButtonInit button7RLH = new JButtonInit(624, 496, 672, 288, 7, Color.white, currentClass7);
+		JButtonInit button1CLAB = new JButtonInit(156, 213, 300, 117, 1, Color.white, currentClass1);
+		JButtonInit button2SC2 = new JButtonInit(554, 213, 280, 117, 2, Color.black, currentClass2);
+		JButtonInit button3PLAB = new JButtonInit(970, 213, 250, 117, 3, Color.black, currentClass3);
+		JButtonInit button4ChLAB = new JButtonInit(850, 630, 417, 130, 4, Color.black, currentClass4);
+		JButtonInit button5SC1 = new JButtonInit(435, 630, 280, 130, 5, Color.white, currentClass5);
+		JButtonInit button6BLAB = new JButtonInit(155, 630, 280, 130, 6, Color.white, currentClass6);
+		JButtonInit button7RLH = new JButtonInit(444, 349, 480, 250, 7, Color.white, currentClass7);
 		button1CLAB.setActive(true);
 		button2SC2.setActive(true);
 		button3PLAB.setActive(true);
@@ -120,19 +125,25 @@ public class Main_Swing {
 		lblPortsmouthAbbeySchool.setForeground(new Color(200, 0, 0));
 		lblPortsmouthAbbeySchool.setHorizontalAlignment(SwingConstants.CENTER);
 		lblPortsmouthAbbeySchool.setFont(new Font("Serif", Font.PLAIN, 65));
-		lblPortsmouthAbbeySchool.setBounds(0, 0, 1920, 100);
+		lblPortsmouthAbbeySchool.setBounds(-250, 0, 1920, 100);
 		frmPasScienceBuilding.getContentPane().add(lblPortsmouthAbbeySchool);
 
-		MovingText textFrame = new MovingText();
-		textFrame.setSize(1920, 20);
-		textFrame.setBounds(0, 100, 1920, 90);
+		MovingText textFrame = new MovingText("http://rss.cnn.com/rss/cnn_us.rss%22");
+		textFrame.setSize(ScrWidth, 20);
+		textFrame.setBounds(0, 100, ScrWidth, 70);
 		textFrame.setVisible(true);
 		frmPasScienceBuilding.getContentPane().add(textFrame);
+		
+//		MovingText textFrame0 = new MovingText("http://rss.cnn.com/rss/cnn_us.rss%22");
+//		textFrame.setSize(1366, 20);
+//		textFrame.setBounds(0, 150, ScrWidth, 70);
+//		textFrame.setVisible(true);
+//		frmPasScienceBuilding.getContentPane().add(textFrame0);
 
 		JLabel label1 = new JLabel();
-		label1.setText("Click on a classroom to open its schedule: ");
-		label1.setFont(new Font("Lato", Font.PLAIN, 35));
-		label1.setBounds((backLabel.getWidth() / 2) - 375, 100, 650, 35);
+		label1.setText("Tap on a classroom to open its schedule: ");
+		label1.setFont(new Font("Lato", Font.PLAIN, 20));
+		label1.setBounds((backLabel.getWidth() / 2) - 190, 71, 650, 35);
 		label1.setVisible(true);
 		backLabel.add(label1);
 
@@ -142,10 +153,11 @@ public class Main_Swing {
 		frmPasScienceBuilding.setUndecorated(true);
 		frmPasScienceBuilding.setVisible(true);
 		frmPasScienceBuilding.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
+		
+		
 		Clock clock = new Clock();
 		JPanel clock0 = clock.getObj();
-		clock0.setBounds(0, 0, 200, 100);
+		clock0.setBounds(0, 20, 142, 71);
 		clock0.setVisible(true);
 		frmPasScienceBuilding.getContentPane().add(clock0);
 
@@ -192,17 +204,17 @@ public class Main_Swing {
 
 	public class MovingText extends JPanel implements ActionListener {
 		private static final long serialVersionUID = 1L;
-		private Font font = new Font("Arial", Font.BOLD, 30);
+		private Font font = new Font("Arial", Font.BOLD, 16);
 		JLabel label;
 
-		public MovingText() {
+		public MovingText(String URL) {
 			RSS rssobject = new RSS();
-			rssobject.getRss();
+			rssobject.getRss(URL);
 
-			label = new JLabel(rssobject.getRss());
+			label = new JLabel(rssobject.getRss(URL));
 			this.add(label);
 			this.setBackground(new Color(204, 0, 0));
-			javax.swing.Timer timer = new javax.swing.Timer(150, this);
+			javax.swing.Timer timer = new javax.swing.Timer(200, this);
 			timer.start();
 		}
 
@@ -218,7 +230,7 @@ public class Main_Swing {
 	private class JButtonInit extends JButton {
 		private static final long serialVersionUID = 1L;
 
-		private Font Font0 = new Font("Arial", Font.BOLD, 18);
+		private Font Font0 = new Font("Arial", Font.BOLD, 14);
 
 		public JButtonInit(int x, int y, int width, int height, int classID, Color color, String text) {
 			JButton button0 = new JButton();
@@ -238,7 +250,7 @@ public class Main_Swing {
 					EventQueue.invokeLater(new Runnable() {
 						public void run() {
 							try {
-								PLabScheduleApp frame = new PLabScheduleApp(classID);
+								PLabScheduleApp frame = new PLabScheduleApp(classID, text);
 								frame.setVisible(true);
 								frame.setAlwaysOnTop(true);
 								revalidate();
@@ -253,7 +265,7 @@ public class Main_Swing {
 				public void mouseEntered(MouseEvent arg0) {
 					// TODO Auto-generated method stub
 					button0.setForeground(color);
-					button0.setText("\nClick to open room schedule");
+					button0.setText("\nTouch to open room schedule");
 				}
 
 				@Override
@@ -281,6 +293,15 @@ public class Main_Swing {
 				this.setVisible(a);
 			} else
 				this.setVisible(a);
+		}
+	}
+
+	public void run() {
+		try {
+			Main_Swing window = new Main_Swing();
+			window.frmPasScienceBuilding.setVisible(true);
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 
