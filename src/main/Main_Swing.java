@@ -2,20 +2,11 @@ package main;
 
 import java.awt.EventQueue;
 import java.awt.Image;
-import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.time.Duration;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 
 import javax.swing.JFrame;
-import java.awt.BorderLayout;
 import javax.swing.JMenuBar;
 import javax.swing.JLabel;
 import javax.imageio.ImageIO;
@@ -29,7 +20,6 @@ import java.awt.Frame;
 
 import javax.swing.SwingConstants;
 import javax.swing.Timer;
-import javax.swing.WindowConstants;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -56,13 +46,6 @@ public class Main_Swing implements Runnable {
 	private static final int[] button5_768 = { 435, 630, 280, 130 };
 	private static final int[] button6_768 = { 155, 630, 280, 130 };
 	private static final int[] button7_768 = { 444, 349, 480, 250 };
-	private static final int[] button1_1080 = {};
-	private static final int[] button2_1080 = {};
-	private static final int[] button3_1080 = {};
-	private static final int[] button4_1080 = {};
-	private static final int[] button5_1080 = {};
-	private static final int[] button6_1080 = {};
-	private static final int[] button7_1080 = {};
 	private int[] current1;
 	private int[] current2;
 	private int[] current3;
@@ -81,7 +64,7 @@ public class Main_Swing implements Runnable {
 	 * Launch the application.
 	 * 
 	 * @author ZackB, DaveyA, BrendanK
-	 * @version 0.2.0
+	 * @version 0.2.1
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -107,13 +90,13 @@ public class Main_Swing implements Runnable {
 	public void switchBackground() {
 		TimerObj a = new TimerObj();
 		a.setDay();
-		// int day = a.getDayOfWeek();
 
 		ActionListener taskPerformer = new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				TimerObj b = new TimerObj();
 				for (int i = 0; i < a.currentTimes.length - 1; i++) {
-					if (a.currentTimes[a.currentTimes.length - 1] > b.getSeconds() || a.currentTimes[0] > b.getSeconds()) {
+					if (a.currentTimes[a.currentTimes.length - 1] > b.getSeconds()
+							|| a.currentTimes[0] > b.getSeconds()) {
 						lblChg("/img/Science Building Map-1.jpg");
 					}
 					if (a.currentTimes[i] < b.getSeconds() && a.currentTimes[i + 1] > b.getSeconds()) {
@@ -137,7 +120,7 @@ public class Main_Swing implements Runnable {
 				b.getSeconds();
 			}
 		};
-		Timer timer = new Timer(5000, taskPerformer); // restarts every minute 120000
+		Timer timer = new Timer(100000, taskPerformer); // restarts every minute 120000
 		timer.setRepeats(true);
 		timer.start();
 
@@ -205,13 +188,6 @@ public class Main_Swing implements Runnable {
 		textFrame.setVisible(true);
 		frmPasScienceBuilding.getContentPane().add(textFrame);
 
-		// MovingText textFrame0 = new
-		// MovingText("http://rss.cnn.com/rss/cnn_us.rss%22");
-		// textFrame.setSize(1366, 20);
-		// textFrame.setBounds(0, 150, ScrWidth, 70);
-		// textFrame.setVisible(true);
-		// frmPasScienceBuilding.getContentPane().add(textFrame0);
-
 		JLabel label1 = new JLabel();
 		label1.setText("Tap on a classroom to open its schedule: ");
 		label1.setFont(new Font("Lato", Font.PLAIN, 20));
@@ -239,7 +215,7 @@ public class Main_Swing implements Runnable {
 		TimerObj a = new TimerObj();
 		dateLbl.setVisible(true);
 		dateLbl.setSize(50, 100);
-		dateLbl.setText(a.getDate());
+		dateLbl.setText(a.getDate().replaceAll("-", "/"));
 		dateLbl.setBounds(20, 30, 100, 100);
 		frmPasScienceBuilding.getContentPane().add(dateLbl);
 
@@ -305,13 +281,6 @@ public class Main_Swing implements Runnable {
 		// TODO Auto-generated method stub
 		if (Toolkit.getDefaultToolkit().getScreenSize().getHeight() == 1080
 				&& Toolkit.getDefaultToolkit().getScreenSize().getWidth() == 1920) {
-//			current1 = button1_1080;
-//			current2 = button2_1080;
-//			current3 = button3_1080;
-//			current4 = button4_1080;
-//			current5 = button5_1080;
-//			current6 = button6_1080;
-//			current7 = button7_1080;
 			current1 = button1_768;
 			current2 = button2_768;
 			current3 = button3_768;

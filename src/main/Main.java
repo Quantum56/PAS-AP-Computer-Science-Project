@@ -5,6 +5,9 @@ package main;
 
 
 import java.util.TimerTask;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.Timer;
 
 /**
@@ -24,10 +27,19 @@ public class Main {
 		t.start();
 
 		Timer timer = new Timer();
-        timer.schedule(new Timer0(), 1000 * 60 * 60 * 24, 1000 * 60 * 60 * 24); // replace 2000 with 24hr converted to millisec
+		Calendar date = new GregorianCalendar();
+		date.set(Calendar.HOUR_OF_DAY, 0);
+		date.set(Calendar.MINUTE, 0);
+		date.set(Calendar.SECOND, 0);
+		date.set(Calendar.MILLISECOND, 0);
+		date.add(Calendar.DAY_OF_MONTH, 1);
+		Date midnightTonight = date.getTime();
+
+		timer = new Timer();
+        timer.schedule(new Task(), midnightTonight); // replace 2000 with 24hr converted to millisec
 	}
 
-	private static class Timer0 extends TimerTask {
+	private static class Task extends TimerTask {
 		public void run() {
 			if (t.isAlive()) {
 				t.interrupt();
@@ -36,6 +48,10 @@ public class Main {
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
+				Main_Swing main = new Main_Swing();
+				t = new Thread(main);
+				t.start();
+			} else {
 				Main_Swing main = new Main_Swing();
 				t = new Thread(main);
 				t.start();

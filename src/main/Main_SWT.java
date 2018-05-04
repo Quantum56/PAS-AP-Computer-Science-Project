@@ -6,10 +6,6 @@ import org.eclipse.wb.swt.SWTResourceManager;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
-import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.ui.forms.widgets.ImageHyperlink;
-import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.custom.CLabel;
 
 public class Main_SWT {

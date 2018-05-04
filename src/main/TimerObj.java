@@ -1,6 +1,5 @@
 package main;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.time.ZonedDateTime;
@@ -106,7 +105,7 @@ public class TimerObj {
 		calendar.setTime(now);
 		calendar.add(Calendar.DATE, 0);
 		Date date = calendar.getTime();             
-		SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");          
+		SimpleDateFormat format1 = new SimpleDateFormat("MM-dd-yyyy");          
 		String inActiveDate = null;
 		inActiveDate = format1.format(date);
 		return inActiveDate;

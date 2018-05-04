@@ -1,18 +1,12 @@
 package main;
 
-import java.awt.BorderLayout;
-import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.Image;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
-import java.awt.image.ImageObserver;
-import java.io.File;
 import java.io.IOException;
-import java.net.URL;
 import java.util.Scanner;
 
 import javax.swing.JFrame;
@@ -30,8 +24,6 @@ public class PLabScheduleApp extends JFrame {
 	private JPanel contentPane;
 	private String resourcePath;
 	private static String room;
-	private int scrWidth;
-	private int scrHeight;
 	private int classID = 0;
 	private static Scanner sc = new Scanner(System.in);
 
@@ -59,9 +51,6 @@ public class PLabScheduleApp extends JFrame {
 	 * Create the frame.
 	 */
 	public PLabScheduleApp(int id, String room0) {
-		Dimension scrSize = Toolkit.getDefaultToolkit().getScreenSize();
-		scrHeight = scrSize.height;
-		scrWidth = scrSize.width;
 		classID = id;
 		room = room0;
 
@@ -69,7 +58,7 @@ public class PLabScheduleApp extends JFrame {
 
 		setAlwaysOnTop(true);
 		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-		setBounds(0, 0, 800, 618);
+		setBounds(0, 0, 800, 700);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);

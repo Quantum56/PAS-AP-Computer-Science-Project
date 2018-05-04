@@ -16,12 +16,12 @@ import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
 /**
  * SwingFXWebView
  */
+@SuppressWarnings("restriction")
 public class SwingFXWebView extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private Stage stage;
@@ -86,7 +86,6 @@ public class SwingFXWebView extends JFrame {
 	 * on the AWT-EventQueue Thread
 	 * 
 	 */
-	@SuppressWarnings("restriction")
 	private void createScene() {
 		PlatformImpl.startup(new Runnable() {
 			@Override
