@@ -69,7 +69,7 @@ public class PLabScheduleApp extends JFrame {
 
 		setAlwaysOnTop(true);
 		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-		setBounds(0, 0, 800, 700);
+		setBounds(0, 0, 800, 618);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -92,12 +92,14 @@ public class PLabScheduleApp extends JFrame {
 		contentPane.add(label);
 		this.setTitle(room);
 		this.setIconImage(null);
+		this.setResizable(false);
 
 		Timer t = new Timer(10000, null);
 		t.addActionListener(new ActionListener() {
 
 			@Override
-			public void actionPerformed(ActionEvent e) {;
+			public void actionPerformed(ActionEvent e) {
+				;
 				dispose();
 
 			}

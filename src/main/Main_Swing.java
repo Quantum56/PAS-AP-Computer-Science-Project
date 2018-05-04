@@ -28,6 +28,7 @@ import java.awt.Font;
 import java.awt.Frame;
 
 import javax.swing.SwingConstants;
+import javax.swing.Timer;
 import javax.swing.WindowConstants;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -42,22 +43,45 @@ public class Main_Swing implements Runnable {
 
 	private String currentClass7 = "RLH Schedule";
 	public String currentClass1 = "Computer Lab Schedule";
-	public String currentClass2 = "Science Lab 2 Schedule";
+	public String currentClass2 = "Physics Classroom Schedule";
 	public String currentClass3 = "Physics Lab Schedule";
 	public String currentClass4 = "Chemistry Lab Schedule";
-	public String currentClass5 = "Science Lab 1 Schedule";
-	public String currentClass6 = "Biology Lab Schedule";
+	public String currentClass5 = "Chemistry Classroom Schedule";
+	public String currentClass6 = "Biology Classroom Schedule";
+
+	private static final int[] button1_768 = { 156, 213, 300, 117 };
+	private static final int[] button2_768 = { 554, 213, 280, 117 };
+	private static final int[] button3_768 = { 970, 213, 250, 117 };
+	private static final int[] button4_768 = { 850, 630, 417, 130 };
+	private static final int[] button5_768 = { 435, 630, 280, 130 };
+	private static final int[] button6_768 = { 155, 630, 280, 130 };
+	private static final int[] button7_768 = { 444, 349, 480, 250 };
+	private static final int[] button1_1080 = {};
+	private static final int[] button2_1080 = {};
+	private static final int[] button3_1080 = {};
+	private static final int[] button4_1080 = {};
+	private static final int[] button5_1080 = {};
+	private static final int[] button6_1080 = {};
+	private static final int[] button7_1080 = {};
+	private int[] current1;
+	private int[] current2;
+	private int[] current3;
+	private int[] current4;
+	private int[] current5;
+	private int[] current6;
+	private int[] current7;
 
 	public JPanel jButtonPanel = new JPanel();
 	public JLabel backLabel = new JLabel("");
-	
+
 	public static int ScrWidth;
 	public static int ScrHeight;
 
 	/**
 	 * Launch the application.
+	 * 
 	 * @author ZackB, DaveyA, BrendanK
-	 * @version 0.1.0
+	 * @version 0.2.0
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -80,6 +104,45 @@ public class Main_Swing implements Runnable {
 		init();
 	}
 
+	public void switchBackground() {
+		TimerObj a = new TimerObj();
+		a.setDay();
+		// int day = a.getDayOfWeek();
+
+		ActionListener taskPerformer = new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				TimerObj b = new TimerObj();
+				for (int i = 0; i < a.currentTimes.length - 1; i++) {
+					if (a.currentTimes[a.currentTimes.length - 1] > b.getSeconds() || a.currentTimes[0] > b.getSeconds()) {
+						lblChg("/img/Science Building Map-1.jpg");
+					}
+					if (a.currentTimes[i] < b.getSeconds() && a.currentTimes[i + 1] > b.getSeconds()) {
+						if (a.currentSch[i] == "A") {
+							lblChg("/img/A Block-1.jpg");
+						} else if (a.currentSch[i] == "B") {
+							lblChg("/img/B Block-1.jpg");
+						} else if (a.currentSch[i] == "C") {
+							lblChg("/img/C Block-1.jpg");
+						} else if (a.currentSch[i] == "D") {
+							lblChg("/img/D Block-1.jpg");
+						} else if (a.currentSch[i] == "E") {
+							lblChg("/img/E Block-1.jpg");
+						} else if (a.currentSch[i] == "F") {
+							lblChg("/img/F Block-1.jpg");
+						} else if (a.currentSch[i] == "G") {
+							lblChg("/img/G Block-1.jpg");
+						}
+					}
+				}
+				b.getSeconds();
+			}
+		};
+		Timer timer = new Timer(5000, taskPerformer); // restarts every minute 120000
+		timer.setRepeats(true);
+		timer.start();
+
+	}
+
 	/**
 	 * Initialize the contents of the frame.
 	 */
@@ -97,18 +160,26 @@ public class Main_Swing implements Runnable {
 		Image dimg = getBufferedImage("/img/Science Building Map-1.jpg", ScrWidth, ScrHeight);
 		frmPasScienceBuilding.getContentPane().setLayout(null);
 
+		switchButtons();
 		backLabel.setBounds(0, 100, ScrWidth, ScrHeight);
 		backLabel.setIcon(new ImageIcon(dimg));
 		jButtonPanel.setLayout(null);
 		jButtonPanel.setVisible(true);
 		jButtonPanel.setBounds(0, 0, ScrWidth, ScrHeight);
-		JButtonInit button1CLAB = new JButtonInit(156, 213, 300, 117, 1, Color.white, currentClass1);
-		JButtonInit button2SC2 = new JButtonInit(554, 213, 280, 117, 2, Color.black, currentClass2);
-		JButtonInit button3PLAB = new JButtonInit(970, 213, 250, 117, 3, Color.black, currentClass3);
-		JButtonInit button4ChLAB = new JButtonInit(850, 630, 417, 130, 4, Color.black, currentClass4);
-		JButtonInit button5SC1 = new JButtonInit(435, 630, 280, 130, 5, Color.white, currentClass5);
-		JButtonInit button6BLAB = new JButtonInit(155, 630, 280, 130, 6, Color.white, currentClass6);
-		JButtonInit button7RLH = new JButtonInit(444, 349, 480, 250, 7, Color.white, currentClass7);
+		JButtonInit button1CLAB = new JButtonInit(current1[0], current1[1], current1[2], current1[3], 1, Color.white,
+				currentClass1);
+		JButtonInit button2SC2 = new JButtonInit(current2[0], current2[1], current2[2], current2[3], 2, Color.black,
+				currentClass2);
+		JButtonInit button3PLAB = new JButtonInit(current3[0], current3[1], current3[2], current3[3], 3, Color.black,
+				currentClass3);
+		JButtonInit button4ChLAB = new JButtonInit(current4[0], current4[1], current4[2], current4[3], 4, Color.black,
+				currentClass4);
+		JButtonInit button5SC1 = new JButtonInit(current5[0], current5[1], current5[2], current5[3], 5, Color.white,
+				currentClass5);
+		JButtonInit button6BLAB = new JButtonInit(current6[0], current6[1], current6[2], current6[3], 6, Color.white,
+				currentClass6);
+		JButtonInit button7RLH = new JButtonInit(current7[0], current7[1], current7[2], current7[3], 7, Color.white,
+				currentClass7);
 		button1CLAB.setActive(true);
 		button2SC2.setActive(true);
 		button3PLAB.setActive(true);
@@ -133,12 +204,13 @@ public class Main_Swing implements Runnable {
 		textFrame.setBounds(0, 100, ScrWidth, 70);
 		textFrame.setVisible(true);
 		frmPasScienceBuilding.getContentPane().add(textFrame);
-		
-//		MovingText textFrame0 = new MovingText("http://rss.cnn.com/rss/cnn_us.rss%22");
-//		textFrame.setSize(1366, 20);
-//		textFrame.setBounds(0, 150, ScrWidth, 70);
-//		textFrame.setVisible(true);
-//		frmPasScienceBuilding.getContentPane().add(textFrame0);
+
+		// MovingText textFrame0 = new
+		// MovingText("http://rss.cnn.com/rss/cnn_us.rss%22");
+		// textFrame.setSize(1366, 20);
+		// textFrame.setBounds(0, 150, ScrWidth, 70);
+		// textFrame.setVisible(true);
+		// frmPasScienceBuilding.getContentPane().add(textFrame0);
 
 		JLabel label1 = new JLabel();
 		label1.setText("Tap on a classroom to open its schedule: ");
@@ -153,35 +225,118 @@ public class Main_Swing implements Runnable {
 		frmPasScienceBuilding.setUndecorated(true);
 		frmPasScienceBuilding.setVisible(true);
 		frmPasScienceBuilding.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
-		
+
 		Clock clock = new Clock();
 		JPanel clock0 = clock.getObj();
-		clock0.setBounds(0, 20, 142, 71);
+		clock0.setBounds(0, 20, 142, 51);
 		clock0.setVisible(true);
 		frmPasScienceBuilding.getContentPane().add(clock0);
 
 		JMenuBar menuBar = new JMenuBar();
 		frmPasScienceBuilding.setJMenuBar(menuBar);
 
-		this.clockLoop();
+		JLabel dateLbl = new JLabel();
+		TimerObj a = new TimerObj();
+		dateLbl.setVisible(true);
+		dateLbl.setSize(50, 100);
+		dateLbl.setText(a.getDate());
+		dateLbl.setBounds(20, 30, 100, 100);
+		frmPasScienceBuilding.getContentPane().add(dateLbl);
+
+		JLabel weather = new JLabel();
+		WeatherRSS w1 = new WeatherRSS();
+		weather.setText(w1.readRSSFeed("http://www.rssweather.com/zipcode/02871/rss.php")); // w1.readRSSFeed("http://www.rssweather.com/zipcode/02871/rss.php")
+		weather.setSize(100, 50);
+		weather.setBounds(900, 50, 500, 50);
+		backLabel.add(weather);
+
+		JButton browser1 = new JButton();
+		browser1.addMouseListener(new MouseListener() {
+
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				// TODO Auto-generated method stub
+				EventQueue.invokeLater(new Runnable() {
+					public void run() {
+						try {
+							SwingFXWebView browser = new SwingFXWebView("https://www.portsmouthabbey.org/index.cfm");
+							browser.setSize(1290, 720);
+							browser.setAlwaysOnTop(true);
+							browser.setVisible(true);
+							browser.setResizable(false);
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+					}
+				});
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent arg0) {
+			}
+
+			@Override
+			public void mouseExited(MouseEvent arg0) {
+			}
+
+			@Override
+			public void mousePressed(MouseEvent arg0) {
+			}
+
+			@Override
+			public void mouseReleased(MouseEvent arg0) {
+			}
+
+		});
+		browser1.setContentAreaFilled(false);
+		browser1.setBorderPainted(true);
+		browser1.setBounds(20, 30, 250, 80);
+		browser1.setText("Portsmouth Abbey School Website");
+		backLabel.add(browser1);
+		switchBackground();
 	}
 
-	private void clockLoop() {
-		LocalDateTime localNow = LocalDateTime.now();
-		ZoneId currentZone = ZoneId.of("America/New_York");
-		ZonedDateTime zonedNow = ZonedDateTime.of(localNow, currentZone);
-		ZonedDateTime zonedNext8;
-		zonedNext8 = zonedNow.withHour(8).withMinute(0).withSecond(0);
-		if (zonedNow.compareTo(zonedNext8) > 0)
-			zonedNext8 = zonedNext8.plusDays(1);
+	private void lblChg(String resPath) {
+		Image dimg = getBufferedImage(resPath, ScrWidth, ScrHeight);
+		backLabel.setIcon(new ImageIcon(dimg));
+	}
 
-		Duration duration = Duration.between(zonedNow, zonedNext8);
-		long initalDelay = duration.getSeconds();
-
-		ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
-		scheduler.scheduleAtFixedRate(new ClockTimer(), initalDelay, 24 * 60 * 60, TimeUnit.SECONDS);
-
+	private void switchButtons() {
+		// TODO Auto-generated method stub
+		if (Toolkit.getDefaultToolkit().getScreenSize().getHeight() == 1080
+				&& Toolkit.getDefaultToolkit().getScreenSize().getWidth() == 1920) {
+//			current1 = button1_1080;
+//			current2 = button2_1080;
+//			current3 = button3_1080;
+//			current4 = button4_1080;
+//			current5 = button5_1080;
+//			current6 = button6_1080;
+//			current7 = button7_1080;
+			current1 = button1_768;
+			current2 = button2_768;
+			current3 = button3_768;
+			current4 = button4_768;
+			current5 = button5_768;
+			current6 = button6_768;
+			current7 = button7_768;
+		} else if (Toolkit.getDefaultToolkit().getScreenSize().getHeight() == 1080
+				&& Toolkit.getDefaultToolkit().getScreenSize().getWidth() == 1920) {
+			current1 = button1_768;
+			current2 = button2_768;
+			current3 = button3_768;
+			current4 = button4_768;
+			current5 = button5_768;
+			current6 = button6_768;
+			current7 = button7_768;
+		} else {
+			current1 = button1_768;
+			current2 = button2_768;
+			current3 = button3_768;
+			current4 = button4_768;
+			current5 = button5_768;
+			current6 = button6_768;
+			current7 = button7_768;
+		}
 	}
 
 	public Image getBufferedImage(String filePath, int width, int height) {
@@ -240,7 +395,6 @@ public class Main_Swing implements Runnable {
 			button0.setBorderPainted(false);
 			button0.setContentAreaFilled(false);
 			button0.setLayout(null);
-			button0.setText(text);
 			addButton(button0);
 
 			button0.addMouseListener(new MouseListener() {
@@ -271,7 +425,7 @@ public class Main_Swing implements Runnable {
 				@Override
 				public void mouseExited(MouseEvent arg0) {
 					// TODO Auto-generated method stub
-					button0.setText(text);
+					button0.setText("");
 				}
 
 				@Override

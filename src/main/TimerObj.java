@@ -1,5 +1,6 @@
 package main;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.time.ZonedDateTime;
@@ -13,68 +14,82 @@ import java.util.Date;
  */
 public class TimerObj {
 	private static Date now = new Date();
-	
-	public int dayOfWeek;
-	public static int[] currentTimes;
-	public final int[] mondayTimes = {};
-	public final int[] tuesdayTimes = {};
-	public final int[] wednesdayTimes = {};
-	public final int[] thursdayTimes = {};
-	public final int[] fridayTimes = {};
-	public final int[] saturdayTimes = {};
 
-	public static String[] currentSch;
-	public final String[] mondaySch = {};
-	public final String[] tuesdaySch = {};
-	public final String[] wednesdaySch = {};
-	public final String[] thursdaySch = {};
-	public final String[] fridaySch = {};
-	public final String[] saturdaySch = {};
-	
+	public int dayOfWeek;
+	public int[] currentTimes;
+	public final int[] mondayTimes = { 29700, 33000, 42300, 47100, 50400 };
+	public final int[] tuesdayTimes = { 29700, 33000, 42300, 45600, 48900 };
+	public final int[] wednesdayTimes = { 29700, 3300, 37800, 41100 };
+	public final int[] thursdayTimes = { 29700, 33000, 42300, 47100, 48900 };
+	public final int[] fridayTimes = { 29700, 33000, 42300, 47100, 50400 };
+	public final int[] saturdayTimes = { 29700, 33000, 36300, 39600 };
+
+	public String[] currentSch;
+	public final String[] mondaySch = { "E", "C", "G", "F", "A" };
+	public final String[] tuesdaySch = { "B", "D", "F", "G", "E" };
+	public final String[] wednesdaySch = { "C", "B", "D", "A" };
+	public final String[] thursdaySch = { "A", "E", "G", "F", "C" };
+	public final String[] fridaySch = { "D", "E", "F", "G", "B" };
+	public final String[] saturdaySch = { "A", "B", "C", "D" };
+
 	public TimerObj() {
-		
+
 	}
-	
-	public static long getSeconds() {
+
+	public long getSeconds() {
 		ZonedDateTime now = ZonedDateTime.now();
 		ZonedDateTime midnight = now.truncatedTo(ChronoUnit.DAYS);
 		Duration duration = Duration.between(midnight, now);
 		long secondsPassed = duration.getSeconds();
 		return secondsPassed;
 	}
-	
+
 	public void setDay() {
 		Date now = new Date();
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(now);
 		dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
-		switch (dayOfWeek) {
-		case 1: // Sunday
+		if (dayOfWeek == 1) {
 			currentTimes = mondayTimes;
-			break;
-		case 2: // Monday
+			currentSch = mondaySch;
+		} else
+		// Monday
+		if (dayOfWeek == 2) {
 			currentTimes = mondayTimes;
-			break;
-		case 3: // Tuesday
+			currentSch = mondaySch;
+		} else
+		// Tuesday
+		if (dayOfWeek == 3) {
 			currentTimes = tuesdayTimes;
-			break;
-		case 4: // Wednesday
+			currentSch = tuesdaySch;
+		} else
+		// Wednesday
+		if (dayOfWeek == 4) {
 			currentTimes = wednesdayTimes;
-			break;
-		case 5: // Thursday
+			currentSch = wednesdaySch;
+		} else
+		// Thursday
+		if (dayOfWeek == 5) {
 			currentTimes = thursdayTimes;
-			break;
-		case 6: // Friday
+			currentSch = thursdaySch;
+		} else
+		// Friday
+		if (dayOfWeek == 6) {
 			currentTimes = fridayTimes;
-			break;
-		case 7: // Saturday
+			currentSch = fridaySch;
+		} else
+		// Saturday
+		if (dayOfWeek == 7) {
 			currentTimes = saturdayTimes;
-			break;
-		default: // optional
+			currentSch = saturdaySch;
+		} else
+		// optional
+		if (dayOfWeek != 0) {
 			currentTimes = mondayTimes;
+			currentSch = mondaySch;
 		}
 	}
-	
+
 	public long getCurrentNanos() {
 		return System.nanoTime() / 1000000000;
 	}
@@ -82,7 +97,19 @@ public class TimerObj {
 	public int getDayOfWeek() {
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(now);
+		calendar.add(Calendar.DATE, 0);
 		return calendar.get(Calendar.DAY_OF_WEEK); // the day of the week in numerical format
+	}
+	
+	public String getDate() {
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(now);
+		calendar.add(Calendar.DATE, 0);
+		Date date = calendar.getTime();             
+		SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");          
+		String inActiveDate = null;
+		inActiveDate = format1.format(date);
+		return inActiveDate;
 	}
 
 	public static void main(String[] args) {
@@ -97,7 +124,12 @@ public class TimerObj {
 		//
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(now);
-		System.out.println(calendar.get(Calendar.DAY_OF_WEEK)); // the day of the week in numerical format
-		System.out.println(getSeconds());
+		calendar.add(Calendar.DATE, 0);
+		Date date = calendar.getTime();             
+		SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");          
+		String inActiveDate = null;
+		inActiveDate = format1.format(date);
+		System.out.println(inActiveDate.replaceAll("-", "/"));
+//		System.out.println(getDayOfWeek()); // the day of the week in numerical format
 	}
 }
