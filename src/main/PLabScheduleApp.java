@@ -88,9 +88,7 @@ public class PLabScheduleApp extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				;
 				dispose();
-
 			}
 		});
 		t.setRepeats(false);

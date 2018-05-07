@@ -16,12 +16,12 @@ public class TimerObj {
 
 	public int dayOfWeek;
 	public int[] currentTimes;
-	public final int[] mondayTimes = { 29700, 33000, 42300, 47100, 50400 };
-	public final int[] tuesdayTimes = { 29700, 33000, 42300, 45600, 48900 };
-	public final int[] wednesdayTimes = { 29700, 3300, 37800, 41100 };
-	public final int[] thursdayTimes = { 29700, 33000, 42300, 47100, 48900 };
-	public final int[] fridayTimes = { 29700, 33000, 42300, 47100, 50400 };
-	public final int[] saturdayTimes = { 29700, 33000, 36300, 39600 };
+	public final int[] mondayTimes = { 29700, 33000, 42300, 45300, 50400, 53700 }; // 8:15, 9:05, 11:45, 12:35, 2:00, 2:55
+	public final int[] tuesdayTimes = { 29700, 33000, 42300, 45300, 48900, 52200 }; // 8:15, 9:05, 11:45, 12:35, 1:30, 2:30
+	public final int[] wednesdayTimes = { 29700, 33000, 37800, 41100, 44400 }; // 8:15, 9:05, 10:30, 11:25, 12:20
+	public final int[] thursdayTimes = { 29700, 33000, 42300, 47100, 48900 }; // 8:15, 9:05, 10:30, 11:45, 12:35, 1:30, 2:30
+	public final int[] fridayTimes = { 29700, 33000, 42300, 45300, 50400, 53700 }; // 8:15, 9:05, 11:45, 12:35, 2:00, 2:55
+	public final int[] saturdayTimes = { 29700, 33000, 36000, 42600 }; // 8:15, 9:05, 10:00, 10:55, 11:50
 
 	public String[] currentSch;
 	public final String[] mondaySch = { "E", "C", "G", "F", "A" };
@@ -44,10 +44,7 @@ public class TimerObj {
 	}
 
 	public void setDay() {
-		Date now = new Date();
-		Calendar calendar = Calendar.getInstance();
-		calendar.setTime(now);
-		dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
+		dayOfWeek = getDayOfWeek();
 		if (dayOfWeek == 1) {
 			currentTimes = mondayTimes;
 			currentSch = mondaySch;
@@ -130,5 +127,6 @@ public class TimerObj {
 		inActiveDate = format1.format(date);
 		System.out.println(inActiveDate.replaceAll("-", "/"));
 //		System.out.println(getDayOfWeek()); // the day of the week in numerical format
+		// used for testing only
 	}
 }

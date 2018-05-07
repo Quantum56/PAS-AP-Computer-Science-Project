@@ -64,7 +64,7 @@ public class Main_Swing implements Runnable {
 	 * Launch the application.
 	 * 
 	 * @author ZackB, DaveyA, BrendanK
-	 * @version 0.2.1
+	 * @version 0.2.3
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -92,11 +92,11 @@ public class Main_Swing implements Runnable {
 		a.setDay();
 
 		ActionListener taskPerformer = new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent evt) {
 				TimerObj b = new TimerObj();
-				for (int i = 0; i < a.currentTimes.length - 1; i++) {
-					if (a.currentTimes[a.currentTimes.length - 1] > b.getSeconds()
-							|| a.currentTimes[0] > b.getSeconds()) {
+				for (int i = 0; i < a.currentTimes.length; i++) {
+					if (a.currentTimes[a.currentTimes.length - 1] < b.getSeconds() || a.currentTimes[0] > b.getSeconds()) {
 						lblChg("/img/Science Building Map-1.jpg");
 					}
 					if (a.currentTimes[i] < b.getSeconds() && a.currentTimes[i + 1] > b.getSeconds()) {
@@ -122,6 +122,7 @@ public class Main_Swing implements Runnable {
 		};
 		Timer timer = new Timer(100000, taskPerformer); // restarts every minute 120000
 		timer.setRepeats(true);
+		timer.setDelay(100000);
 		timer.start();
 
 	}
@@ -149,20 +150,13 @@ public class Main_Swing implements Runnable {
 		jButtonPanel.setLayout(null);
 		jButtonPanel.setVisible(true);
 		jButtonPanel.setBounds(0, 0, ScrWidth, ScrHeight);
-		JButtonInit button1CLAB = new JButtonInit(current1[0], current1[1], current1[2], current1[3], 1, Color.white,
-				currentClass1);
-		JButtonInit button2SC2 = new JButtonInit(current2[0], current2[1], current2[2], current2[3], 2, Color.black,
-				currentClass2);
-		JButtonInit button3PLAB = new JButtonInit(current3[0], current3[1], current3[2], current3[3], 3, Color.black,
-				currentClass3);
-		JButtonInit button4ChLAB = new JButtonInit(current4[0], current4[1], current4[2], current4[3], 4, Color.black,
-				currentClass4);
-		JButtonInit button5SC1 = new JButtonInit(current5[0], current5[1], current5[2], current5[3], 5, Color.white,
-				currentClass5);
-		JButtonInit button6BLAB = new JButtonInit(current6[0], current6[1], current6[2], current6[3], 6, Color.white,
-				currentClass6);
-		JButtonInit button7RLH = new JButtonInit(current7[0], current7[1], current7[2], current7[3], 7, Color.white,
-				currentClass7);
+		JButtonInit button1CLAB = new JButtonInit(current1[0], current1[1], current1[2], current1[3], 1, Color.white, currentClass1);
+		JButtonInit button2SC2 = new JButtonInit(current2[0], current2[1], current2[2], current2[3], 2, Color.black, currentClass2);
+		JButtonInit button3PLAB = new JButtonInit(current3[0], current3[1], current3[2], current3[3], 3, Color.black, currentClass3);
+		JButtonInit button4ChLAB = new JButtonInit(current4[0], current4[1], current4[2], current4[3], 4, Color.black, currentClass4);
+		JButtonInit button5SC1 = new JButtonInit(current5[0], current5[1], current5[2], current5[3], 5, Color.white, currentClass5);
+		JButtonInit button6BLAB = new JButtonInit(current6[0], current6[1], current6[2], current6[3], 6, Color.white, currentClass6);
+		JButtonInit button7RLH = new JButtonInit(current7[0], current7[1], current7[2], current7[3], 7, Color.white, currentClass7);
 		button1CLAB.setActive(true);
 		button2SC2.setActive(true);
 		button3PLAB.setActive(true);
@@ -233,6 +227,7 @@ public class Main_Swing implements Runnable {
 			public void mouseClicked(MouseEvent arg0) {
 				// TODO Auto-generated method stub
 				EventQueue.invokeLater(new Runnable() {
+					@Override
 					public void run() {
 						try {
 							SwingFXWebView browser = new SwingFXWebView("https://www.portsmouthabbey.org/index.cfm");
@@ -342,6 +337,7 @@ public class Main_Swing implements Runnable {
 			timer.start();
 		}
 
+		@Override
 		public void actionPerformed(ActionEvent e) {
 			String oldText = label.getText();
 			String newText = oldText.substring(1) + oldText.substring(0, 1);
@@ -371,6 +367,7 @@ public class Main_Swing implements Runnable {
 				public void mouseClicked(MouseEvent arg0) {
 					// TODO Auto-generated method stub
 					EventQueue.invokeLater(new Runnable() {
+						@Override
 						public void run() {
 							try {
 								PLabScheduleApp frame = new PLabScheduleApp(classID, text);
@@ -419,6 +416,7 @@ public class Main_Swing implements Runnable {
 		}
 	}
 
+	@Override
 	public void run() {
 		try {
 			Main_Swing window = new Main_Swing();

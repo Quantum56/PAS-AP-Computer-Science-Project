@@ -57,13 +57,8 @@ public class Clock extends JPanel {
 
 			Calendar now = Calendar.getInstance();
 			hour = now.get(Calendar.HOUR);
-			int h = Math.abs(hour);
-			h = (int) Math.floor(h / Math.pow(10, Math.floor(Math.log10(h))));
-			if (h == 0) {
-				String temp = Integer.toString(hour);
-				int[] guess = new int[temp.length()];
-				int last = guess[temp.length() - 1];
-				hour = last;
+			if (hour == 0) {
+				hour = 12;
 			}
 			minute = now.get(Calendar.MINUTE);
 			second = now.get(Calendar.SECOND);
